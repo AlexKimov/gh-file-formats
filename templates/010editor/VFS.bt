@@ -1,0 +1,159 @@
+//------------------------------------------------
+//--- 010 Editor v8.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+local float size;
+
+typedef struct {
+  uint size;
+  uint flags;
+  char fourCC[4];
+  uint RGBBitCount;
+  uint RBitMask;
+  uint GBitMask;
+  uint BBitMask ;
+  uint ABitMask;
+} DDS_PIXELFORMAT;
+
+typedef struct { 
+  char magic[4];
+  uint size;
+  uint flags;
+  uint height;
+  uint width;
+  uint pitchOrLinearSize;
+  uint depth;
+  uint mipMapCount;
+  uint reserved1[11];
+  DDS_PIXELFORMAT ddspf;
+  int caps;   
+  int caps2;
+  char ID[4];
+  int caps4;
+  int reserved2;
+} DDS_HEADER;
+
+struct {
+  char magic[4]; //VFSR
+  uint Version <name="File Version">; //
+  uint Offset; // offset
+  char Description[256];
+  uint Count;
+  uint Unknown;
+} HEADER <name="File header">;
+
+FSeek(FileSize() - 8);
+uint UnpackedDataSize;
+uint PackedDataSize;
+
+FSeek(FileSize() - 8 - PackedDataSize);
+uchar Data[PackedDataSize];
+
+ohoh();
+struct { 
+  DDS_HEADER DDS;
+  if (DDS.ddspf.fourCC == "DXT1") 
+    size = DDS.width*DDS.height/2;   
+  else    
+    size = DDS.width*DDS.height; 
+  byte Data[size];
+} DDF_FILE;
+
+
+struct {
+  char ID1[4];  
+  uint count;
+  local uint i;
+  
+  struct {
+    uint length; 
+    char Name1[length]; 
+    uint length; 
+    char Name2[length]; 
+    uint count; 
+    uint C;   
+  } root;
+
+  struct { 
+    uint length; 
+    char Name001[length]; 
+    uint length; 
+    char Name002[length];
+    uint count; 
+    uint C; 
+  } sprites;
+
+  struct {  
+    uint length; 
+    char Name01[length]; 
+    uint length; 
+    char Name02[length]; 
+    uint count; 
+    uint C;   
+
+    uint length; 
+    char Name0[length]; 
+    uint length; 
+    uint length; 
+
+    uint length; 
+    char Name1[length]; 
+
+    uint length; 
+    char Name2[length]; 
+    uint length; 
+    uint length;
+    uint length;
+    uint length; 
+    char Name3[length]; 
+    uint length;
+    uint length;
+    uint length;  
+
+    struct {
+      uint length;
+      char Layer[length];
+      uint length;
+      uint length; 
+      uint length; 
+      uint length; 
+
+      char Position[length];
+      uint length;
+      uint length; 
+      uint length;
+      uint length; 
+      uint length; 
+      uint length; 
+
+      char Size[length]; 
+      uint length; 
+      uint length;
+      uint length; 
+      uint length; 
+      uint length; 
+
+      struct {
+        uint length; 
+        char Name6[length]; 
+        uint length; 
+        uint length;
+        uint length; 
+        uint length; 
+        uint length;
+      } tc[4] <optimize=false>;
+
+   } LAYER[count] <optimize=false>;
+
+  } sprite[10] <optimize=false>;
+
+} SDVS;

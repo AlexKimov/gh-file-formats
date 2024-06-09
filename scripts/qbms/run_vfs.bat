@@ -1,0 +1,1 @@
+F:\git\qbms\quickbms.exe -K -d -e -Y -F "*.vfs" unpack_vfs.bms "F:\Games\Dead SpaceDeath to Spies" unpacked_dts
