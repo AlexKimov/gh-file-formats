@@ -1,0 +1,40 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+char FOURCC[4];
+uint size;
+uint boneNum;
+byte a;
+
+struct {
+  string name;
+  float bonePosRot[7];
+  int index;
+
+  uint posKeyNum;
+  struct {
+    float time;
+    float x;
+    float y;
+    float z;
+  } POSITION[posKeyNum];
+
+  int rotKeyNum;
+  struct {
+    float time;
+    float x;
+    float y;
+    float z;
+    float w;
+  } ROTATION[rotKeyNum];
+} BONE[boneNum] <optimize=false>;

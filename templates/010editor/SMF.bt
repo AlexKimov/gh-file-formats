@@ -1,0 +1,270 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+char magic[4];
+uint size;
+uint a;
+uint matNum;
+uint nodeNum;
+uint a;
+
+uint readChunk()
+{ 
+  struct {
+    char FOURCC[4];
+    uint size;
+    switch (FOURCC)
+    {
+      case "SDVS":
+        uint unk;    
+
+          uint length;
+          char name1[length];
+          uint num; 
+          uint num;  
+          uint num;
+
+          uint length;
+          char name2[length];
+          uint num; 
+          uint num;  
+          uint num;  
+          ubyte a;
+
+          struct {
+            uint length;
+            char name3[length];
+
+            uint length;
+            char name4[length];
+
+            uint num;  
+            uint texNum;
+
+            struct {
+              uint length;
+              char name0[length];
+              if (name0 == "shaderFX") 
+              {
+                uint num; 
+                uint num;   
+                uint length;
+                char name00[length];
+              } else if (name0 == "SpecularStrength")
+              {
+                uint num0;
+                struct { 
+                  uint num;  
+                  float num;  
+                } u[num0];
+              } else
+              if (name0 == "BumpSpec") 
+              {
+                uint length;
+                char name7[length];
+
+                uint num;
+
+              } else
+              if (name0 == "SpecularGloss") 
+              {
+                uint num0;  
+                  uint num;  
+                  float num;  
+                    
+              } else
+              if (name0 == "Blendmode") 
+              {
+                uint num0;  
+                uint num1;
+                struct { 
+                  uint length;
+                  char name1[length];
+                } u[num0];                
+              }
+              else
+              if (name0 == "DiffuseColor") 
+              {
+                uint num0;  
+                struct { 
+                  uint num;  
+                  uint num;  
+                } u[num0];                
+              }
+              else
+              {
+                uint num;  
+                uint num;
+                uint length;
+                char name1[length];
+                uint num;
+                uint length;
+                char name2[length];
+              }
+             } TEX[texNum] <optimize=false>;
+           } MATERIAL[matNum] <optimize=false>;
+        break;
+      case "SHDR":
+        struct {
+          uint a;
+          string name; 
+        } mat[matNum] <optimize=false>; 
+        break;
+      case "BLOD":
+           local uint i;
+           for (i = 0; i < nodeNum; ++i)
+             readChunk(); 
+           break;
+      case "ANIM":
+           readChunk();
+           readChunk();
+           break;
+      case "APOS":
+           uint16 a;
+           uint16 num;
+           struct {
+             float index;
+             float x;
+             float y;
+             float z;
+           } FRAME[num];
+           break;
+      case "Arot":
+           uint16 a;
+           uint16 num;
+           struct {
+             float index;
+             float x;
+             float y;
+             float z;
+             float w;
+           } FRAME[num];
+           break;
+      case "BBAM":
+           uint16 a;
+           uint16 num;
+           struct {
+             float index;
+             float x;
+             float y;
+             float z;
+           } FRAME[num];
+           uint16 a;
+           uint16 num;
+           struct {
+             float index;
+             float x;
+             float x;
+             float x;
+           } FRAME2[num];
+           break;
+      case "NODE": 
+        local uint chunkSize = size;   
+        local uint length = ReadStringLength(FTell());      
+        string name; 
+        uint size;
+        ubyte a;
+        float x;
+        float y;
+        float z;
+        float x;
+        float y;
+        float z;
+        float x;
+        float y;
+        float z;
+        float x;
+        float y;
+
+        uint vertexNum;
+        uint faceNum;
+        uint z;
+        uint bb;
+
+        char FOURCC3[4];
+        uint size;
+        chunkSize -= size;
+        struct {   
+          uint16 i1;
+          uint16 i2;
+          uint16 i3;
+        } FACE[faceNum];
+
+        char FOURCC4[4];
+        uint size; 
+        chunkSize -= size;
+        uint num; 
+        struct {
+          uint16 index;
+          uint k[2]; 
+          float t[3];
+        } u00[num];
+ 
+        char FOURCC5[4];
+        uint size; 
+        chunkSize -= size;
+        struct {   
+          float x;
+          float y;
+          float z;
+        } VERTEX[vertexNum];  
+
+        char FOURCC6[4];
+        uint size; 
+        chunkSize -= size;
+        struct {   
+          float x;
+          float y;
+          float z;
+        } NORMAL[vertexNum];     
+
+        char FOURCC7[4];
+        uint size; 
+        chunkSize -= size; 
+        uint unk; 
+        struct {   
+          float u;
+          float v;
+        } TC[vertexNum];  
+
+        char FOURCC8[4];
+        uint size; 
+        chunkSize -= size;
+        struct {   
+          float x;
+          float y;
+          float z;
+          float w;
+        } TANGENS[vertexNum]; 
+
+        if (chunkSize > (8*5 + 18 *4 + length + 1))
+          readChunk(); 
+        break;      
+      case "BBOX":
+        float x;
+        float y;
+        float z;
+        float x;
+        float y;
+        float z;
+        break;
+      default:
+        byte Data[size];
+    }
+  } CHUNK;
+
+  return 1;
+}
+
+while (!FEof())
+    readChunk();
